@@ -137,7 +137,7 @@ class promtail (
   Optional[Hash]                                    $positions_config_hash,
   Optional[Hash]                                    $scrape_configs_hash,
   Optional[Stdlib::Absolutepath]                    $bin_dir               = '/usr/bin',
-  Optional[String[1]]                               $binaryversion,
+  Optional[String[1]]                               $binaryversion         = "v1.0.0",
   Optional[String[1]]                               $checksum              = undef,
   Optional[Hash]                                    $server_config_hash    = undef,
   Optional[Hash]                                    $target_config_hash    = undef,
