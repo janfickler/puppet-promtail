@@ -18,7 +18,7 @@ class promtail::install {
     case $facts['kernel'] {
       'Linux': {
         $data_dir = '/usr/local/promtail_data'
-        if versioncmp($promtail::version, 'v0.3.0') > 0 {
+        if versioncmp($promtail::binaryversion, 'v0.3.0') > 0 {
           $release_file_name = "promtail-linux-${arch}"
         } else {
           $release_file_name = "promtail_linux_${arch}"
@@ -27,13 +27,13 @@ class promtail::install {
       default: { fail("${facts['kernel']} is not yet supported") }
     }
 
-    if versioncmp($promtail::version, 'v1.0.0') > 0 {
+    if versioncmp($promtail::binaryversion, 'v1.0.0') > 0 {
       $archive_type = 'zip'
     } else {
       $archive_type = 'gz'
     }
 
-    $version_dir = "${data_dir}/promtail-${promtail::version}"
+    $version_dir = "${data_dir}/promtail-${promtail::binaryversion}"
     $binary_path = "${version_dir}/${release_file_name}"
 
     file { [$data_dir, $version_dir]:
@@ -42,7 +42,7 @@ class promtail::install {
 
     archive { "${binary_path}.gz":
       ensure        => present,
-      source        => "${promtail::source_url}/${promtail::version}/${release_file_name}.${archive_type}",
+      source        => "${promtail::source_url}/${promtail::binaryversion}/${release_file_name}.${archive_type}",
       extract       => true,
       extract_path  => $version_dir,
       creates       => $binary_path,
@@ -66,7 +66,7 @@ class promtail::install {
     }
   } elsif $promtail::install_method == 'package' {
     package { $promtail::package_name:
-      ensure => $promtail::package_ensure,
+      ensure => $promtail::package_rpm_version ,
     }
   }
 }
