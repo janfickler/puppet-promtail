@@ -34,7 +34,7 @@
 #   Note: each platform has its own checksum.
 #   Values can be found with each release on GitHub
 #
-# @param [String[1]] version
+# @param [String[1]] binaryversion
 #   The version as listed on the GitHub release page
 #   See https://github.com/grafana/loki/releases for a list
 #
@@ -83,7 +83,7 @@
 #     target_config_hash    => $target_config_hash,
 #     bin_dir               => $bin_dir,
 #     checksum              => $checksum,
-#     version               => $version,
+#     version               => $binaryversion,
 #   }
 #
 # @example Settings in a Hiera file
@@ -137,7 +137,7 @@ class promtail (
   Optional[Hash]                                    $positions_config_hash,
   Optional[Hash]                                    $scrape_configs_hash,
   Optional[Stdlib::Absolutepath]                    $bin_dir               = '/usr/bin',
-  Optional[String[1]]                               $version,
+  Optional[String[1]]                               $binaryversion,
   Optional[String[1]]                               $checksum              = undef,
   Optional[Hash]                                    $server_config_hash    = undef,
   Optional[Hash]                                    $target_config_hash    = undef,
@@ -147,6 +147,7 @@ class promtail (
   Optional[Enum['package', 'archive']]              $install_method        = 'package',
   Optional[Enum['installed', 'latest', 'absent']]   $package_ensure        = 'latest',
   Optional[String[1]]                               $package_name          = 'promtail',
+  Optional[String[1]]                               $package_rpm_version   = $package_ensure
 ) {
   Class['promtail::install']
   -> Class['promtail::config']
