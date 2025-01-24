@@ -144,7 +144,7 @@ class promtail (
   Optional[Stdlib::Absolutepath]                    $password_file_path        = '/etc/promtail/.gc_pw',
   Optional[Sensitive[String[1]]]                    $password_file_content     = undef,
   Optional[Stdlib::Absolutepath]                    $password_app_file_path    = '/etc/promtail/.gc_pw_app',
-  Optional[Sensitive[String[1]]]                    $password_app_file_content = undef,
+  Optional[String[1]]                               $password_app_file_content = undef,
   Optional[Stdlib::HTTPUrl]                         $source_url                = 'https://github.com/grafana/loki/releases/download',
   Optional[Enum['package', 'archive']]              $install_method            = 'package',
   Optional[Enum['installed', 'latest', 'absent']]   $package_ensure            = 'latest',
