@@ -81,6 +81,7 @@ class promtail::config {
       content   => unwrap($promtail::password_file_content),
       show_diff => false,
     }
+  }
 
   if $promtail::password_app_file_path and $promtail::password_app_file_content {
     file { $promtail::password_app_file_path:
